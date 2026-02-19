@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PixelCraft Academy — Онлайн-школа digital-арта</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0F172A;--card:#1E293B;--purple:#8B5CF6;--pink:#EC4899;
+  --orange:#F97316;--white:#F8FAFC;--gray:#94A3B8;
+  --grad:linear-gradient(135deg,#8B5CF6,#EC4899);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:999;background:rgba(15,23,42,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(139,92,246,.2);padding:0 60px}
+.nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px}
+.logo{font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:15px;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.btn-nav{background:var(--grad);border:none;padding:10px 24px;border-radius:8px;color:#fff;font-weight:700;cursor:pointer;font-size:14px;font-family:'Inter',sans-serif}
+
+/* SECTION BASE */
+.section{padding:100px 60px;max-width:1200px;margin:0 auto}
+.section-full{padding:100px 60px}
+.section-inner{max-width:1200px;margin:0 auto}
+.label{color:var(--pink);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:16px}
+h2{font-family:'Montserrat',sans-serif;font-size:42px;font-weight:800;line-height:1.15;margin-bottom:48px}
+h2 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;padding:140px 60px 100px;max-width:1200px;margin:0 auto;gap:60px}
+.hero-left{flex:1.1}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.35);color:var(--purple);padding:7px 18px;border-radius:24px;font-size:13px;font-weight:600;margin-bottom:28px}
+h1{font-family:'Montserrat',sans-serif;font-size:58px;font-weight:900;line-height:1.08;margin-bottom:24px}
+h1 span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{color:var(--gray);font-size:18px;margin-bottom:36px;max-width:500px;line-height:1.7}
+.hero-form{display:flex;gap:12px;margin-bottom:40px;flex-wrap:wrap}
+.hero-form input{flex:1;min-width:220px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:15px 20px;color:#fff;font-size:15px;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s}
+.hero-form input:focus{border-color:var(--purple)}
+.hero-form input::placeholder{color:var(--gray)}
+.btn-primary{background:var(--grad);border:none;padding:15px 30px;border-radius:12px;color:#fff;font-weight:700;cursor:pointer;font-size:15px;font-family:'Inter',sans-serif;white-space:nowrap;box-shadow:0 0 30px rgba(236,72,153,.35);transition:transform .2s,box-shadow .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(236,72,153,.5)}
+.stats{display:flex;gap:40px;flex-wrap:wrap}
+.stat .num{font-family:'Montserrat',sans-serif;font-size:30px;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat .lbl{color:var(--gray);font-size:13px;margin-top:2px}
+.hero-right{flex:1;position:relative}
+.hero-img{width:100%;max-width:500px;border-radius:24px;object-fit:cover;height:480px;box-shadow:0 0 80px rgba(139,92,246,.25);border:1px solid rgba(139,92,246,.2);display:block}
+.hero-badge-float{position:absolute;bottom:24px;left:-20px;background:var(--card);border:1px solid rgba(139,92,246,.3);border-radius:16px;padding:14px 20px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.hero-badge-float .ico{font-size:28px}
+.hero-badge-float .txt strong{display:block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px}
+.hero-badge-float .txt span{color:var(--gray);font-size:12px}
+
+/* PROBLEMS */
+#problems{background:rgba(30,41,59,.5)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.card{background:var(--card);border:1px solid rgba(139,92,246,.15);border-radius:20px;padding:36px 28px;transition:transform .3s,border-color .3s}
+.card:hover{transform:translateY(-6px);border-color:rgba(236,72,153,.4)}
+.card-ico{font-size:42px;margin-bottom:20px}
+.card h3{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:700;margin-bottom:12px}
+.card p{color:var(--gray);font-size:14px;line-height:1.75}
+
+/* HOW */
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+.steps4::before{content:'';position:absolute;top:36px;left:10%;width:80%;height:2px;background:linear-gradient(90deg,transparent,var(--purple),var(--pink),transparent);opacity:.3}
+.step{text-align:center;padding:28px 16px;position:relative;z-index:1}
+.step-n{width:60px;height:60px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:900;font-size:22px;margin:0 auto 20px;box-shadow:0 0 24px rgba(139,92,246,.4)}
+.step h3{font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px}
+.step p{color:var(--gray);font-size:13px;line-height:1.7}
+
+/* PROGRAM */
+#program{background:rgba(30,41,59,.4)}
+.modules{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.mod{background:var(--card);border-left:4px solid var(--purple);border-radius:0 16px 16px 0;padding:28px 32px;transition:border-color .3s}
+.mod:hover{border-left-color:var(--pink)}
+.mod-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.mod-num{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:900;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.mod h3{font-family:'Montserrat',sans-serif;font-size:17px;font-weight:700}
+.mod ul{list-style:none;margin-bottom:16px}
+.mod ul li{color:var(--gray);font-size:13px;padding:5px 0;display:flex;align-items:center;gap:8px}
+.mod ul li::before{content:'✦';color:var(--purple);font-size:9px;flex-shrink:0}
+.dur{display:inline-block;background:rgba(139,92,246,.12);color:var(--purple);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid rgba(139,92,246,.2)}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.gal-item{border-radius:16px;overflow:hidden;aspect-ratio:1;position:relative;border:1px solid rgba(139,92,246,.15);transition:transform .3s,border-color .3s}
+.gal-item:hover{transform:scale(1.04);border-color:var(--pink)}
+.gal-item img{width:100%;height:100%;object-fit:cover;display:block}
+.gal-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(15,23,42,.8),transparent);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:14px}
+.gal-item:hover .gal-overlay{opacity:1}
+.gal-overlay span{font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;color:#fff}
+.btn-outline{background:transparent;border:2px solid var(--pink);color:var(--pink);padding:12px 28px;border-radius:12px;font-weight:700;cursor:pointer;font-size:14px;font-family:'Inter',sans-serif;transition:all .2s;margin-top:32px;display:block;width:fit-content;margin-left:auto;margin-right:auto}
+.btn-outline:hover{background:var(--pink);color:#fff}
+
+/* PRICING */
+#pricing{background:rgba(30,41,59,.4)}
+.pricing3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:start}
+.price-card{background:var(--card);border:1px solid rgba(139,92,246,.2);border-radius:24px;padding:40px 32px;position:relative;transition:transform .3s}
+.price-card:hover{transform:translateY(-4px)}
+.price-card.hot{border-color:var(--purple);box-shadow:0 0 50px rgba(139,92,246,.2)}
+.hot-badge{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:var(--grad);padding:6px 22px;border-radius:24px;font-size:12px;font-weight:700;white-space:nowrap}
+.p-name{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;margin-bottom:8px}
+.p-price{font-family:'Montserrat',sans-serif;font-size:44px;font-weight:900;margin:12px 0 4px;line-height:1}
+.p-price sup{font-size:22px;vertical-align:super}
+.p-period{color:var(--gray);font-size:13px;margin-bottom:28px}
+.p-list{list-style:none;margin-bottom:32px}
+.p-list li{padding:10px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:10px}
+.p-list li .ok{color:var(--purple)}
+.p-list li .no{color:#475569;text-decoration:line-through}
+.btn-filled{width:100%;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;background:var(--grad);border:none;color:#fff;font-family:'Inter',sans-serif;box-shadow:0 0 24px rgba(236,72,153,.3);transition:transform .2s}
+.btn-filled:hover{transform:translateY(-2px)}
+.btn-ghost{width:100%;padding:14px;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;background:transparent;border:2px solid var(--purple);color:var(--purple);font-family:'Inter',sans-serif;transition:all .2s}
+.btn-ghost:hover{background:var(--purple);color:#fff}
+
+/* TEACHERS */
+.team3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.teacher{background:var(--card);border-radius:24px;padding:36px 28px;text-align:center;border:1px solid rgba(139,92,246,.1);transition:transform .3s,border-color .3s}
+.teacher:hover{transform:translateY(-6px);border-color:rgba(139,92,246,.35)}
+.t-photo{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 20px;display:block;border:3px solid transparent;background-clip:padding-box;box-shadow:0 0 0 3px var(--purple)}
+.teacher h3{font-family:'Montserrat',sans-serif;font-size:19px;font-weight:700;margin-bottom:4px}
+.t-role{color:var(--purple);font-size:13px;font-weight:600;margin-bottom:14px}
+.teacher p{color:var(--gray);font-size:13px;line-height:1.75;margin-bottom:18px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.tag{background:rgba(139,92,246,.1);color:var(--purple);padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid rgba(139,92,246,.2)}
+
+/* REVIEWS */
+#reviews{background:rgba(30,41,59,.4)}
+.reviews3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review{background:var(--card);border-radius:20px;padding:32px;border:1px solid rgba(255,255,255,.05);transition:transform .3s}
+.review:hover{transform:translateY(-4px)}
+.stars{color:#FBBF24;font-size:18px;margin-bottom:16px}
+.r-text{color:var(--gray);font-size:14px;line-height:1.8;margin-bottom:24px;font-style:italic}
+.reviewer{display:flex;align-items:center;gap:14px}
+.r-photo{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--purple)}
+.r-name{font-weight:600;font-size:14px;margin-bottom:2px}
+.r-course{color:var(--gray);font-size:12px}
+
+/* FAQ */
+.faq-wrap{max-width:780px;margin:0 auto}
+.faq-item{border-bottom:1px solid rgba(255,255,255,.07)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:22px 0;cursor:pointer;gap:16px}
+.faq-q span{font-family:'Montserrat',sans-serif;font-weight:600;font-size:16px;line-height:1.4}
+.faq-arr{color:var(--purple);font-size:22px;flex-shrink:0;transition:transform .3s}
+.faq-item.open .faq-arr{transform:rotate(45deg)}
+.faq-a{color:var(--gray);font-size:14px;line-height:1.8;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+.faq-item.open .faq-a{max-height:200px;padding-bottom:20px}
+
+/* CTA */
+#cta{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(236,72,153,.1));border-top:1px solid rgba(139,92,246,.2);border-bottom:1px solid rgba(139,92,246,.2);text-align:center;padding:100px 60px}
+#cta .inner{max-width:700px;margin:0 auto}
+#cta h2{font-size:46px;margin-bottom:16px}
+#cta p{color:var(--gray);font-size:17px;margin-bottom:40px;line-height:1.7}
+.cta-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-form input{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:15px 20px;color:#fff;font-size:15px;outline:none;width:240px;font-family:'Inter',sans-serif}
+.cta-form input::placeholder{color:var(--gray)}
+
+/* FOOTER */
+footer{background:#070D1A;padding:40px 60px;border-top:1px solid rgba(139,92,246,.1)}
+.foot-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{color:var(--gray);text-decoration:none;font-size:13px;transition:color .2s}
+.foot-links a:hover{color:var(--white)}
+.socials{display:flex;gap:10px}
+.soc{width:38px;height:38px;border-radius:10px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;transition:background .2s}
+.soc:hover{background:rgba(139,92,246,.3)}
+.foot-copy{color:var(--gray);font-size:12px;margin-top:20px;text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,.05);max-width:1200px;margin-left:auto;margin-right:auto}
+
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  #hero{flex-direction:column;padding:120px 20px 60px;gap:40px}
+  h1{font-size:38px}
+  .hero-img{height:280px}
+  .hero-badge-float{display:none}
+  .section,.section-full{padding:60px 20px}
+  .cards3,.steps4,.modules,.gallery,.pricing3,.team3,.reviews3{grid-template-columns:1fr}
+  h2{font-size:30px}
+  #cta{padding:60px 20px}
+  .cta-form{flex-direction:column;align-items:center}
+  .cta-form input{width:100%;max-width:360px}
+  footer{padding:32px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">⬡ PixelCraft</a>
+    <ul class="nav-links">
+      <li><a href="#how">Обучение</a></li>
+      <li><a href="#program">Программа</a></li>
+      <li><a href="#pricing">Тарифы</a></li>
+      <li><a href="#teachers">Преподаватели</a></li>
+      <li><a href="#reviews">Отзывы</a></li>
+    </ul>
+    <button class="btn-nav" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Записаться →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-left reveal">
+    <div class="badge">🎨 Онлайн-школа digital-арта #1 в СНГ</div>
+    <h1>Стань <span>цифровым художником</span> за 3 месяца</h1>
+    <p class="hero-sub">Освой digital-рисунок, concept-art и UI/UX-дизайн с нуля. Создашь портфолио из 10 работ и выйдешь на фриланс.</p>
+    <div class="hero-form">
+      <input type="email" placeholder="Введите ваш email">
+      <button class="btn-primary">Бесплатный урок →</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num">4 500+</div><div class="lbl">выпускников</div></div>
+      <div class="stat"><div class="num">98%</div><div class="lbl">рекомендуют</div></div>
+      <div class="stat"><div class="num">4.9 ★</div><div class="lbl">средний рейтинг</div></div>
+    </div>
+  </div>
+  <div class="hero-right reveal">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80" alt="Digital Art">
+    <div class="hero-badge-float">
+      <div class="ico">🏆</div>
+      <div class="txt"><strong>4 500+ выпускников</strong><span>уже работают в индустрии</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEMS -->
+<div id="problems" class="section-full">
+  <div class="section-inner">
+    <div class="label reveal">Боли аудитории</div>
+    <h2 class="reveal">Почему не получается <span>рисовать самостоятельно?</span></h2>
+    <div class="cards3">
+      <div class="card reveal"><div class="card-ico">😵</div><h3>Не знаешь с чего начать</h3><p>YouTube-туториалы противоречат друг другу, непонятно какую программу учить и где брать задания для практики.</p></div>
+      <div class="card reveal"><div class="card-ico">⏰</div><h3>Нет живой обратной связи</h3><p>Рисуешь в одиночестве, не знаешь — правильно ли делаешь. Ошибки копятся и постепенно отбивают желание продолжать.</p></div>
+      <div class="card reveal"><div class="card-ico">📉</div><h3>Нет прогресса месяцами</h3><p>Занимаешься, но портфолио остаётся пустым. Работодатели и заказчики не воспринимают тебя всерьёз.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW -->
+<div id="how" class="section">
+  <div class="label reveal">Как мы работаем</div>
+  <h2 class="reveal" style="text-align:center">4 шага к <span>первому заказу</span></h2>
+  <div class="steps4">
+    <div class="step reveal"><div class="step-n">1</div><h3>Диагностика уровня</h3><p>Анализируем подготовку и составляем персональный план обучения</p></div>
+    <div class="step reveal"><div class="step-n">2</div><h3>Теория + практика</h3><p>Видеоуроки + живые воркшопы с ментором 2 раза в неделю</p></div>
+    <div class="step reveal"><div class="step-n">3</div><h3>Создаёшь портфолио</h3><p>Делаешь 10 реальных работ, которые можно показывать заказчикам</p></div>
+    <div class="step reveal"><div class="step-n">4</div><h3>Первый заказ</h3><p>Помогаем выйти на Behance, ArtStation и найти первого платящего клиента</p></div>
+  </div>
+</div>
+
+<!-- PROGRAM -->
+<div id="program" class="section-full">
+  <div class="section-inner">
+    <div class="label reveal">Программа курса</div>
+    <h2 class="reveal">Что ты <span>изучишь</span></h2>
+    <div class="modules">
+      <div class="mod reveal"><div class="mod-top"><span class="mod-num">01</span><h3>Основы цифрового рисунка</h3></div><ul><li>Интерфейс Procreate / Photoshop</li><li>Базовые кисти и текстуры</li><li>Свет, тень, объём</li><li>Цветовые схемы и палитры</li></ul><span class="dur">⏱ 3 недели</span></div>
+      <div class="mod reveal"><div class="mod-top"><span class="mod-num">02</span><h3>Character Design</h3></div><ul><li>Анатомия персонажей</li><li>Дизайн костюмов и атрибутов</li><li>Линейный арт и заливка</li><li>Концепт-листы персонажей</li></ul><span class="dur">⏱ 4 недели</span></div>
+      <div class="mod reveal"><div class="mod-top"><span class="mod-num">03</span><h3>Environment & Concept Art</h3></div><ul><li>Перспектива и архитектура</li><li>Дизайн окружения и локаций</li><li>Атмосфера и освещение</li><li>Matte painting техники</li></ul><span class="dur">⏱ 4 недели</span></div>
+      <div class="mod reveal"><div class="mod-top"><span class="mod-num">04</span><h3>Портфолио и фриланс</h3></div><ul><li>Оформление Behance / ArtStation</li><li>Работа с заказчиками и договоры</li><li>Ценообразование на услуги</li><li>Продвижение в соцсетях</li></ul><span class="dur">⏱ 2 недели</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" class="section">
+  <div class="label reveal">Работы студентов</div>
+  <h2 class="reveal" style="text-align:center">Это сделали <span>наши ученики</span></h2>
+  <div class="gallery">
+    <div class="gal-item reveal"><img src="https://images.unsplash.com/photo-1617791160536-598cf32026fb?w=500&q=80" alt="Digital Art 1"><div class="gal-overlay"><span>Character Design</span></div></div>
+    <div class="gal-item reveal"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=500&q=80" alt="Digital Art 2"><div class="gal-overlay"><span>Concept Art</span></div></div>
+    <div class="gal-item reveal"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&q=80" alt="Digital Art 3"><div class="gal-overlay"><span>Illustration</span></div></div>
+    <div class="gal-item reveal"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&q=80" alt="Digital Art 4"><div class="gal-overlay"><span>Environment Art</span></div></div>
+    <div class="gal-item reveal"><img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=500&q=80" alt="Digital Art 5"><div class="gal-overlay"><span>3D Modeling</span></div></div>
+    <div class="gal-item reveal"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Digital Art 6"><div class="gal-overlay"><span>UI Design</span></div></div>
+    <div class="gal-item reveal"><img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&q=80" alt="Digital Art 7"><div class="gal-overlay"><span>Game Asset</span></div></div>
+    <div class="gal-item reveal"><img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&q=80" alt="Digital Art 8"><div class="gal-overlay"><span>Sci-Fi Concept</span></div></div>
+  </div>
+  <button class="btn-outline">Смотреть все работы →</button>
+</div>
+
+<!-- PRICING -->
+<div id="pricing" class="section-full">
+  <div class="section-inner">
+    <div class="label reveal">Тарифы</div>
+    <h2 class="reveal" style="text-align:center">Выбери <span>свой план</span></h2>
+    <div class="pricing3">
+      <div class="price-card reveal">
+        <div class="p-name">Базовый</div>
+        <div class="p-price"><sup>₽</sup>9 900</div>
+        <div class="p-period">за весь курс</div>
+        <ul class="p-list">
+          <li><span class="ok">✦</span> Доступ к видеоурокам</li>
+          <li><span class="ok">✦</span> Проверка домашних заданий</li>
+          <li><span class="ok">✦</span> Закрытый чат студентов</li>
+          <li><span class="no">✦ Живые воркшопы</span></li>
+          <li><span class="no">✦ Ревью портфолио</span></li>
+        </ul>
+        <button class="btn-ghost">Выбрать план</button>
+      </div>
+      <div class="price-card hot reveal">
+        <div class="hot-badge">⭐ ПОПУЛЯРНЫЙ</div>
+        <div class="p-name">Профессионал</div>
+        <div class="p-price"><sup>₽</sup>18 900</div>
+        <div class="p-period">за весь курс</div>
+        <ul class="p-list">
+          <li><span class="ok">✦</span> Доступ к видеоурокам</li>
+          <li><span class="ok">✦</span> Проверка домашних заданий</li>
+          <li><span class="ok">✦</span> Закрытый чат студентов</li>
+          <li><span class="ok">✦</span> Живые воркшопы (2×/нед)</li>
+          <li><span class="ok">✦</span> Ревью портфолио</li>
+        </ul>
+        <button class="btn-filled">Выбрать план</button>
+      </div>
+      <div class="price-card reveal">
+        <div class="p-name">VIP</div>
+        <div class="p-price"><sup>₽</sup>34 900</div>
+        <div class="p-period">за весь курс</div>
+        <ul class="p-list">
+          <li><span class="ok">✦</span> Всё из Профессионала</li>
+          <li><span class="ok">✦</span> 1-на-1 сессии с ментором</li>
+          <li><span class="ok">✦</span> Гарантия трудоустройства</li>
+          <li><span class="ok">✦</span> Персональный план карьеры</li>
+          <li><span class="ok">✦</span> Поддержка 24/7</li>
+        </ul>
+        <button class="btn-ghost">Выбрать план</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHERS -->
+<div id="teachers" class="section">
+  <div class="label reveal">Преподаватели</div>
+  <h2 class="reveal" style="text-align:center">Учись у <span>практиков индустрии</span></h2>
+  <div class="team3">
+    <div class="teacher reveal">
+      <img class="t-photo" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Алексей Морозов">
+      <h3>Алексей Морозов</h3>
+      <div class="t-role">Concept Artist · Lead Mentor</div>
+      <p>10 лет в геймдеве. Работал над проектами для Ubisoft и Wargaming. Специализация: character & environment design.</p>
+      <div class="tags"><span class="tag">Photoshop</span><span class="tag">Procreate</span><span class="tag">Character</span></div>
+    </div>
+    <div class="teacher reveal">
+      <img class="t-photo" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="Мария Соколова">
+      <h3>Мария Соколова</h3>
+      <div class="t-role">Illustrator · UI/UX Designer</div>
+      <p>Фрилансер с доходом 300k+/мес. Клиенты из Яндекс и Сбер. Эксперт по цифровой иллюстрации и дизайну приложений.</p>
+      <div class="tags"><span class="tag">Figma</span><span class="tag">Illustration</span><span class="tag">UI/UX</span></div>
+    </div>
+    <div class="teacher reveal">
+      <img class="t-photo" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="Дмитрий Ким">
+      <h3>Дмитрий Ким</h3>
+      <div class="t-role">3D Artist · Animator</div>
+      <p>Senior 3D Artist в анимационной студии. Опыт в создании персонажей для мультфильмов и рекламы международных брендов.</p>
+      <div class="tags"><span class="tag">Blender</span><span class="tag">ZBrush</span><span class="tag">3D</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div id="reviews" class="section-full">
+  <div class="section-inner">
+    <div class="label reveal">Отзывы</div>
+    <h2 class="reveal" style="text-align:center">Что говорят <span>выпускники</span></h2>
+    <div class="reviews3">
+      <div class="review reveal">
+        <div class="stars">★★★★★</div>
+        <p class="r-text">«За 3 месяца с нуля дошёл до первого заказа на Behance. Алексей объясняет так, что всё понятно даже новичку. Лучшие инвестиции в себя за последние годы!»</p>
+        <div class="reviewer"><img class="r-photo" src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&q=80" alt="Иван"><div><div class="r-name">Иван Петров</div><div class="r-course">Курс: Профессионал</div></div></div>
+      </div>
+      <div class="review reveal">
+        <div class="stars">★★★★★</div>
+        <p class="r-text">«Наконец нашла школу с чёткой структурой, а не хаотичными видосами. Портфолио собрала за 2 месяца, уже беру коммерческие заказы на иллюстрации.»</p>
+        <div class="reviewer"><img class="r-photo" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Анна"><div><div class="r-name">Анна Кузнецова</div><div class="r-course">Курс: Профессионал</div></div></div>
+      </div>
+      <div class="review reveal">
+        <div class="stars">★★★★★</div>
+        <p class="r-text">«VIP-план — огонь. Персональные сессии с ментором помогли быстро устранить слабые места. Через 4 месяца получил оффер в геймдев-студию!»</p>
+        <div class="reviewer"><img class="r-photo" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Артём"><div><div class="r-name">Артём Волков</div><div class="r-course">Курс: VIP</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div id="faq" class="section">
+  <div class="label reveal">Вопросы и ответы</div>
+  <h2 class="reveal" style="text-align:center">Часто задаваемые <span>вопросы</span></h2>
+  <div class="faq-wrap">
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>Нужны ли навыки рисования для поступления?</span><span class="faq-arr">+</span></div><div class="faq-a">Нет, мы принимаем полных новичков. Программа построена с абсолютного нуля — от базовых линий до профессиональных работ.</div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>Какое оборудование нужно для обучения?</span><span class="faq-arr">+</span></div><div class="faq-a">Графический планшет Wacom или iPad + Apple Pencil. Минимальный бюджет — от 5 000 ₽ за планшет Wacom Intuos S.</div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>Сколько времени нужно уделять в день?</span><span class="faq-arr">+</span></div><div class="faq-a">1–2 часа в день. Занятия построены так, чтобы легко совмещать с основной учёбой или работой.</div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>Есть ли рассрочка на оплату?</span><span class="faq-arr">+</span></div><div class="faq-a">Да, рассрочка 0% на 6 и 12 месяцев через Тинькофф, Сбер или ПСБ. Ежемесячный платёж от 1 650 ₽.</div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>Что если курс не подойдёт?</span><span class="faq-arr">+</span></div><div class="faq-a">Гарантия возврата в течение 14 дней без вопросов. Вернём деньги в течение 3 рабочих дней.</div></div>
+    <div class="faq-item reveal"><div class="faq-q" onclick="toggleFaq(this)"><span>Дают ли сертификат по окончании?</span><span class="faq-arr">+</span></div><div class="faq-a">Да, именной сертификат PixelCraft Academy — можно добавить в LinkedIn, резюме и портфолио.</div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div id="cta">
+  <div class="inner">
+    <div class="label reveal" style="justify-content:center;display:flex">Начни сегодня</div>
+    <h2 class="reveal">Запишись на <span>бесплатный урок</span></h2>
+    <p class="reveal">Познакомишься с преподавателем, нарисуешь свою первую работу и поймёшь — твоё это или нет. Без обязательств.</p>
+    <div class="cta-form reveal">
+      <input type="text" placeholder="Ваше имя">
+      <input type="email" placeholder="Ваш email">
+      <button class="btn-primary">Получить урок →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <a href="#" class="logo">⬡ PixelCraft Academy</a>
+    <div class="foot-links">
+      <a href="#">Политика конфиденциальности</a>
+      <a href="#">Договор оферты</a>
+      <a href="#">Контакты</a>
+    </div>
+    <div class="socials">
+      <div class="soc">📱</div>
+      <div class="soc">✈️</div>
+      <div class="soc">▶️</div>
+      <div class="soc">🎨</div>
+    </div>
+  </div>
+  <div class="foot-copy">© 2026 PixelCraft Academy. Все права защищены. Превращаем хобби в профессию с 2019 года.</div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); } });
+}, {threshold: 0.12});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// FAQ toggle
+function toggleFaq(el) {
+  const item = el.parentElement;
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Smooth nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
